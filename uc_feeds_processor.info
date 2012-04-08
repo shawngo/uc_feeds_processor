@@ -1,0 +1,8 @@
+name = Ubercart Feeds Processor
+description = Feeds processor for Ubercart products.
+package = "Feeds"
+core = 6.x
+php = 5.0
+
+dependencies[] = uc_product
+dependencies[] = feeds

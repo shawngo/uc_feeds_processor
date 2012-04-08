@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ *
+ */
+
+/**
+ * Implements hook_feeds_enable().
+ */
+function uc_feeds_processor_feeds_enable() {
+  // Clear the cache to display in Feeds as available plugin.
+  cache_clear_all('plugins:feeds:plugins', 'cache');
+}
+
+/**
+ * Implements hook_feeds_plugins().
+ */
+function uc_feeds_processor_feeds_plugins() {
+  $info = array();
+  $info['UCFeedsProductProcessor'] = array(
+    'name' => 'Ubercart Product Processor',
+    'description' => 'Maps and creates Ubercart Products.',
+    'handler' => array(
+      // A plugin needs to derive either directly or indirectly from
+      // FeedsFetcher, FeedsParser or FeedsProcessor.
+      'parent' => 'FeedsNodeProcessor',
+      'class' => 'UCFeedsProductProcessor',
+      'file' => 'UCFeedsProductProcessor.inc',
+      'path' => drupal_get_path('module', 'uc_feeds_processor'),
+    ),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_feeds_after_import().
+ */
+function uc_feeds_processor_feeds_after_import(FeedsImporter $importer, FeedsSource $source) {
+  // Delete the feeds files after import.
+//  file_scan_directory(file_create_path('feeds'), '.*', array('.', '..', 'CVS'), 'file_delete', TRUE);
+}
